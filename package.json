@@ -1,0 +1,19 @@
+{
+  "name": "wordsearchtdd",
+  "version": "1.0.0",
+  "author": "Michael Pawlowski",
+  "description": "TDD Word Search Kata",
+  "main": "WordSearch.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dicearx/wordsearchtdd"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^24.9.0"
+  }
+}
