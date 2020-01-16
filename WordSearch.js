@@ -38,6 +38,12 @@ class WordSearch {
     this.answers = [];
 
     this.transformData( response );
+
+    for( let a = 0; a < this.answers.length; a++ ) {
+    for( let i = 0; this.puzzle.length < i; i++ ) {
+      this.findAnswerHorizontally( this.puzzle[ i ], this.answers[ a ] );
+    }
+    }
   }
 
   get( which ) {
@@ -62,6 +68,12 @@ class WordSearch {
       console.error( 'Not enough data. Exiting...' );
       exit();
     }
+  }
+
+  findAnswerHorizontally( line, answer ) {
+    const answerRE = new RegExp( answer, ig );
+
+    console.log( answer, line, answerRE.test( line.join( /,/ ) ) );
   }
 }
 
