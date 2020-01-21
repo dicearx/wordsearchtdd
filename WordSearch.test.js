@@ -53,3 +53,10 @@ test( 'Should find KIRK reverse horizontally', () => {
 test( 'Should find KATA reverse horizontally', () => {
   expect( ws2.findWordHorizontally( 'KATA', true ) ).toBe( 'KATA: (9,9),(8,9),(7,9),(6,9)' );
 } );
+
+test( 'Should find KHAN reverse vertically',  () => {
+  expect( ws1.findWordVertically( 'KHAN', true ) ).toBe( 'KHAN: (5,9),(5,8),(5,7),(5,6)' );
+} );
+test( 'Should NOT find KHAN reverse vertically',  () => {
+  expect( ws2.findWordVertically( 'KHAN', true ) ).toBe( 'Not able to find KHAN' );
+} );

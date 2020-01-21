@@ -21,6 +21,8 @@ class WordSearch {
     this.answers = [];
 
     this.transformData( res );
+
+    this.answers.forEach( answer => console.log( this.findWordVertically( answer, true ) ) );
   }
 
   get( which ) {
@@ -80,25 +82,26 @@ class WordSearch {
 
     if( str !== beginning ) {
       return str;
-    } else {
-      console.log( `Not able to find ${searchInReverse ? answer.split( '' ).reverse().join( '' ) : answer}` );
-
-      return '';
     }
+
+    return `Not able to find ${searchInReverse ? answer.split( '' ).reverse().join( '' ) : answer}`;
   }
 
-  findWordVertically( answer, incrementColumn = false ) {
-    const firstLetter = answer.substr( 0, 1 );
+  findWordVertically( answer, searchInReverse = false, incrementColumn = false ) {
     const beginning = `${answer}: `;
+
+    const firstLetter = answer.substr( 0, 1 );
     let str = beginning;
 
-    for( let row = 0; row < ( this.grid.length - answer.length + 1 ); row++ ) {
+    let row = searchInReverse ? this.grid.length - 1 : 0;
+    while( searchInReverse ? row > 0 : row < ( this.grid.length - answer.length + 1 ) ) {
       const currentRow = this.grid[ row ];
 
       let rowLength = currentRow.length;
       if( incrementColumn ) {
         rowLength -= ( answer.length + 1 );
       }
+
       for( let col = 0; col < rowLength; col++ ) {
         const letter = currentRow[ col ];
 
@@ -107,14 +110,15 @@ class WordSearch {
 
           for( let a = 1; a < answer.length; a++ ) {
             const nextLetter = answer.substr( a, 1 );
-            const nextRow = this.grid[ row + a ];
+            let rowInc = searchInReverse ? row - a : row + a;
+            const nextRow = this.grid[ rowInc ];
             let colInc = col;
             if( incrementColumn ) {
-              colInc += a;
+              colInc = searchInReverse ? colInc - a : colInc + a;
             }
 
             if( nextLetter === nextRow[ colInc ] ) {
-             str += this.buildAnswer( colInc, row + a, a < ( answer.length - 1 ) );
+             str += this.buildAnswer( colInc, rowInc, a < ( answer.length - 1 ) );
             } else {
               str = beginning;
 
@@ -127,15 +131,19 @@ class WordSearch {
           return str;
         }
       }
+
+      searchInReverse ? --row : ++row;
     }
 
-    console.log( `Not able to find ${answer}` );
-
-    return '';
+    return `Not able to find ${answer}`;
   }
 
   findWordDiagonally( answer ) {
-    return this.findWordVertically( answer, true );
+    return this.findWordVertically( answer, false, true );
+  }
+
+  findWordReverseDiagonally( answer ) {
+    return this.findWordVertically( answer, true, true );
   }
 }
 
