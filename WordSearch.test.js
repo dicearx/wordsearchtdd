@@ -34,7 +34,7 @@ Z,T,Q,G,U,L,O,B,B,X,O,Z,R,H,Y
 D,E,V,E,L,O,P,M,E,N,T,O,Z,K,T`);
 
 test( 'API request gets puzzle and answers', () => {
-  expect( ws1.get( 'puzzle' ).length ).toBeGreaterThan( 0 );
+  expect( ws1.get( 'grid' ).length ).toBeGreaterThan( 0 );
   expect( ws1.get( 'answers' ).length ).toBeGreaterThan( 0 );
 } );
 
@@ -44,4 +44,8 @@ test( 'Should find SCOTTY horizontally', () => {
 
 test( 'Should find DEVELOPMENT horizontally', () => {
   expect( ws2.findWordHorizontally( 'DEVELOPMENT' ) ).toBe( 'DEVELOPMENT: (0,14),(1,14),(2,14),(3,14),(4,14),(5,14),(6,14),(7,14),(8,14),(9,14),(10,14)' );
+} );
+
+test( 'Should find BONES vertically', () => {
+  expect( ws1.findWordVertically( 'BONES' ) ).toBe( 'BONES: (0,6),(0,7),(0,8),(0,9),(0,10)' );
 } );
