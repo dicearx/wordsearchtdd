@@ -16,26 +16,14 @@ T,G,L,B,H,C,B,E,C,H,T,O,Y,I,K
 O,J,Y,E,U,L,N,C,C,L,Y,B,Z,U,H
 W,Z,M,I,S,U,K,U,R,B,I,D,U,X,S
 K,Y,L,B,Q,Q,P,M,D,F,C,K,E,A,B`);
-const ws2 = new WordSearch(`DEVELOPMENT,DRIVEN,KATA,TEST,THIS
-D,P,E,T,K,H,S,Y,B,S,J,K,L,M,V
-G,R,E,Q,Y,L,P,H,B,Z,N,J,W,Z,O
-D,S,I,C,Q,S,S,M,L,O,K,U,S,R,S
-T,J,V,V,D,H,Z,Z,O,J,W,G,F,G,W
-Q,J,F,Z,E,O,Y,N,F,S,L,U,M,S,Z
-P,A,Q,W,E,N,T,G,B,S,B,U,D,L,Y
-Y,N,L,F,Y,P,F,W,C,S,A,C,Q,V,B
-D,H,S,B,P,X,I,D,X,Q,M,T,W,E,R
-V,P,E,J,T,A,P,G,Z,B,O,H,N,D,W
-I,U,S,F,M,C,A,T,A,K,A,I,A,Z,X
-U,G,W,U,S,X,X,A,I,K,P,S,N,F,D
-Q,A,G,J,B,S,M,D,K,Q,V,W,M,A,F
-Q,T,B,C,E,R,S,A,Z,S,G,M,O,F,E
-Z,T,Q,G,U,L,O,B,B,X,O,Z,R,H,Y
-D,E,V,E,L,O,P,M,E,N,T,O,Z,K,T`);
+const ws2 = new WordSearch();
 
 test( 'API request gets puzzle and answers', () => {
   expect( ws1.get( 'grid' ).length ).toBeGreaterThan( 0 );
   expect( ws1.get( 'answers' ).length ).toBeGreaterThan( 0 );
+
+  expect( ws2.get( 'grid' ).length ).toBeGreaterThan( 0 );
+  expect( ws2.get( 'answers' ).length ).toBeGreaterThan( 0 );
 } );
 
 test( 'Should find SCOTTY horizontally', () => {
