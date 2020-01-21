@@ -22,7 +22,7 @@ class WordSearch {
 
     this.transformData( res );
 
-    this.answers.forEach( answer => console.log( this.findWordVertically( answer, true ) ) );
+    // this.answers.forEach( answer => console.log( this.findWordReverseDiagonally( answer ) ) );
   }
 
   get( which ) {
@@ -86,9 +86,20 @@ class WordSearch {
 
     return `Not able to find ${searchInReverse ? answer.split( '' ).reverse().join( '' ) : answer}`;
   }
+  findWordForwardHorizontally( answer ) {
+    return this.findWordHorizontally( answer );
+  }
+  findWordBackwardHorizontally( answer ) {
+    return this.findWordHorizontally( answer, true );
+  }
 
-  findWordVertically( answer, searchInReverse = false, incrementColumn = false ) {
+  findWordVertically( answer, searchInReverse = false, searchDiagonally = false ) {
     const beginning = `${answer}: `;
+    const isLeftUpSearch = ( searchInReverse && searchDiagonally );
+
+    // if( isLeftUpSearch ) {
+    //   answer = answer.split( '' ).reverse().join( '' );
+    // }
 
     const firstLetter = answer.substr( 0, 1 );
     let str = beginning;
@@ -98,11 +109,13 @@ class WordSearch {
       const currentRow = this.grid[ row ];
 
       let rowLength = currentRow.length;
-      if( incrementColumn ) {
+      if( searchDiagonally ) {
         rowLength -= ( answer.length + 1 );
       }
 
-      for( let col = 0; col < rowLength; col++ ) {
+      let col = ( isLeftUpSearch ) ? currentRow.length - 1 : 0;
+      while( isLeftUpSearch ? col > 0 : col < rowLength ) {
+      // for( let col = 0; col < rowLength; col++ ) {
         const letter = currentRow[ col ];
 
         if( letter === firstLetter ) {
@@ -113,7 +126,7 @@ class WordSearch {
             let rowInc = searchInReverse ? row - a : row + a;
             const nextRow = this.grid[ rowInc ];
             let colInc = col;
-            if( incrementColumn ) {
+            if( searchDiagonally ) {
               colInc = searchInReverse ? colInc - a : colInc + a;
             }
 
@@ -130,6 +143,8 @@ class WordSearch {
         if( str !== beginning ) {
           return str;
         }
+
+        isLeftUpSearch ? --col : ++col;
       }
 
       searchInReverse ? --row : ++row;
@@ -137,14 +152,23 @@ class WordSearch {
 
     return `Not able to find ${answer}`;
   }
+  findWordDownwardVertically( answer ) {
+    return this.findWordVertically( answer );
+  }
+  findWordUpwardVertically( answer ) {
+    return this.findWordVertically( answer, true );
+  }
 
-  findWordDiagonally( answer ) {
+  findWordRightDownDiagonally( answer ) {  // Right Down
     return this.findWordVertically( answer, false, true );
   }
 
-  findWordReverseDiagonally( answer ) {
+  findWordLeftUpDiagonally( answer ) { // Left Up
     return this.findWordVertically( answer, true, true );
   }
+
+  // Left Down
+  // Left Up
 }
 
 module.exports = WordSearch;

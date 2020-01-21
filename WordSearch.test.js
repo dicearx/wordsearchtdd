@@ -27,36 +27,51 @@ test( 'API request gets puzzle and answers', () => {
 } );
 
 test( 'Should find SCOTTY horizontally', () => {
-  expect( ws1.findWordHorizontally( 'SCOTTY' ) ).toBe( 'SCOTTY: (0,5),(1,5),(2,5),(3,5),(4,5),(5,5)' );
+  expect( ws1.findWordForwardHorizontally( 'SCOTTY' ) ).toBe( 'SCOTTY: (0,5),(1,5),(2,5),(3,5),(4,5),(5,5)' );
 } );
 test( 'Should find DEVELOPMENT horizontally', () => {
-  expect( ws2.findWordHorizontally( 'DEVELOPMENT' ) ).toBe( 'DEVELOPMENT: (0,14),(1,14),(2,14),(3,14),(4,14),(5,14),(6,14),(7,14),(8,14),(9,14),(10,14)' );
+  expect( ws2.findWordForwardHorizontally( 'DEVELOPMENT' ) ).toBe( 'DEVELOPMENT: (0,14),(1,14),(2,14),(3,14),(4,14),(5,14),(6,14),(7,14),(8,14),(9,14),(10,14)' );
 } );
 
 test( 'Should find BONES vertically', () => {
-  expect( ws1.findWordVertically( 'BONES' ) ).toBe( 'BONES: (0,6),(0,7),(0,8),(0,9),(0,10)' );
+  expect( ws1.findWordDownwardVertically( 'BONES' ) ).toBe( 'BONES: (0,6),(0,7),(0,8),(0,9),(0,10)' );
 } );
 test( 'Should find THIS vertically', () => {
-  expect( ws2.findWordVertically( 'THIS' ) ).toBe( 'THIS: (11,7),(11,8),(11,9),(11,10)' );
+  expect( ws2.findWordDownwardVertically( 'THIS' ) ).toBe( 'THIS: (11,7),(11,8),(11,9),(11,10)' );
 } );
 
-test( 'Should find SPOCK diagonally', () => {
-  expect( ws1.findWordDiagonally( 'SPOCK' ) ).toBe( 'SPOCK: (2,1),(3,2),(4,3),(5,4),(6,5)' );
+test( 'Should find SPOCK right down diagonally', () => {
+  expect( ws1.findWordRightDownDiagonally( 'SPOCK' ) ).toBe( 'SPOCK: (2,1),(3,2),(4,3),(5,4),(6,5)' );
 } );
-test( 'Should find DRIVEN diagonally', () => {
-  expect( ws2.findWordDiagonally( 'DRIVEN' ) ).toBe( 'DRIVEN: (0,0),(1,1),(2,2),(3,3),(4,4),(5,5)' );
+test( 'Should find DRIVEN right down diagonally', () => {
+  expect( ws2.findWordRightDownDiagonally( 'DRIVEN' ) ).toBe( 'DRIVEN: (0,0),(1,1),(2,2),(3,3),(4,4),(5,5)' );
 } );
+
+// test( 'Should find UHURA left down diagonally', () => {
+//   expect( ws1.findWordReverseDiagonally( 'UHURA' ) ).toBe( 'UHURA: (4,0),(3,1),(2,2),(1,3),(0,4)' );
+// } );
+// test( 'Should find TEST left down diagonally', () => {
+//   expect( ws2.findWordReverseDiagonally( 'SULU' ) ).toBe( 'Not able to find SULU' );
+// } );
 
 test( 'Should find KIRK reverse horizontally', () => {
-  expect( ws1.findWordHorizontally( 'KIRK', true ) ).toBe( 'KIRK: (4,7),(3,7),(2,7),(1,7)' );
+  expect( ws1.findWordBackwardHorizontally( 'KIRK' ) ).toBe( 'KIRK: (4,7),(3,7),(2,7),(1,7)' );
 } );
 test( 'Should find KATA reverse horizontally', () => {
-  expect( ws2.findWordHorizontally( 'KATA', true ) ).toBe( 'KATA: (9,9),(8,9),(7,9),(6,9)' );
+  expect( ws2.findWordBackwardHorizontally( 'KATA' ) ).toBe( 'KATA: (9,9),(8,9),(7,9),(6,9)' );
 } );
 
 test( 'Should find KHAN reverse vertically',  () => {
-  expect( ws1.findWordVertically( 'KHAN', true ) ).toBe( 'KHAN: (5,9),(5,8),(5,7),(5,6)' );
+  expect( ws1.findWordUpwardVertically( 'KHAN' ) ).toBe( 'KHAN: (5,9),(5,8),(5,7),(5,6)' );
 } );
 test( 'Should NOT find KHAN reverse vertically',  () => {
-  expect( ws2.findWordVertically( 'KHAN', true ) ).toBe( 'Not able to find KHAN' );
+  expect( ws2.findWordUpwardVertically( 'KHAN' ) ).toBe( 'Not able to find KHAN' );
 } );
+
+test( 'Should find SULU left up diagonally', () => {
+  expect( ws1.findWordLeftUpDiagonally( 'SULU' ) ).toBe( 'SULU: (3,3),(2,2),(1,1),(0,0)' );
+} );
+test( 'Should NOT find SULU left up diagonally', () => {
+  expect( ws2.findWordLeftUpDiagonally( 'SULU' ) ).toBe( 'Not able to find SULU' );
+} );
+
