@@ -80,7 +80,7 @@ class WordSearch {
     const beginning = `${answer}: `;
     let str = beginning;
 
-    for( let row = 0; row < this.grid.length; row++ ) {
+    for( let row = 0; row < ( this.grid.length - answer.length + 1 ); row++ ) {
       const currentRow = this.grid[ row ];
 
       for( let col = 0; col < currentRow.length; col++ ) {

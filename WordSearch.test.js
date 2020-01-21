@@ -37,3 +37,7 @@ test( 'Should find DEVELOPMENT horizontally', () => {
 test( 'Should find BONES vertically', () => {
   expect( ws1.findWordVertically( 'BONES' ) ).toBe( 'BONES: (0,6),(0,7),(0,8),(0,9),(0,10)' );
 } );
+
+test( 'Should find THIS vertically', () => {
+  expect( ws2.findWordVertically( 'THIS' ) ).toBe( 'THIS: (11,7),(11,8),(11,9),(11,10)' );
+} );
