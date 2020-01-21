@@ -29,7 +29,6 @@ test( 'API request gets puzzle and answers', () => {
 test( 'Should find SCOTTY horizontally', () => {
   expect( ws1.findWordHorizontally( 'SCOTTY' ) ).toBe( 'SCOTTY: (0,5),(1,5),(2,5),(3,5),(4,5),(5,5)' );
 } );
-
 test( 'Should find DEVELOPMENT horizontally', () => {
   expect( ws2.findWordHorizontally( 'DEVELOPMENT' ) ).toBe( 'DEVELOPMENT: (0,14),(1,14),(2,14),(3,14),(4,14),(5,14),(6,14),(7,14),(8,14),(9,14),(10,14)' );
 } );
@@ -37,7 +36,13 @@ test( 'Should find DEVELOPMENT horizontally', () => {
 test( 'Should find BONES vertically', () => {
   expect( ws1.findWordVertically( 'BONES' ) ).toBe( 'BONES: (0,6),(0,7),(0,8),(0,9),(0,10)' );
 } );
-
 test( 'Should find THIS vertically', () => {
   expect( ws2.findWordVertically( 'THIS' ) ).toBe( 'THIS: (11,7),(11,8),(11,9),(11,10)' );
+} );
+
+test( 'Should find SPOCK diagonally', () => {
+  expect( ws1.findWordDiagonally( 'SPOCK' ) ).toBe( 'SPOCK: (2,1),(3,2),(4,3),(5,4),(6,5)' );
+} );
+test( 'Should find DRIVEN diagonally', () => {
+  expect( ws2.findWordDiagonally( 'DRIVEN' ) ).toBe( 'DRIVEN: (0,0),(1,1),(2,2),(3,3),(4,4),(5,5)' );
 } );

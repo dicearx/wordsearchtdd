@@ -72,10 +72,12 @@ class WordSearch {
       return str;
     } else {
       console.log( `Not able to find ${answer}` );
+
+      return '';
     }
   }
 
-  findWordVertically( answer ) {
+  findWordVertically( answer, incrementColumn = false ) {
     const firstLetter = answer.substr( 0, 1 );
     const beginning = `${answer}: `;
     let str = beginning;
@@ -83,7 +85,11 @@ class WordSearch {
     for( let row = 0; row < ( this.grid.length - answer.length + 1 ); row++ ) {
       const currentRow = this.grid[ row ];
 
-      for( let col = 0; col < currentRow.length; col++ ) {
+      let rowLength = currentRow.length;
+      if( incrementColumn ) {
+        rowLength -= ( answer.length + 1 );
+      }
+      for( let col = 0; col < rowLength; col++ ) {
         const letter = currentRow[ col ];
 
         if( letter === firstLetter ) {
@@ -92,9 +98,13 @@ class WordSearch {
           for( let a = 1; a < answer.length; a++ ) {
             const nextLetter = answer.substr( a, 1 );
             const nextRow = this.grid[ row + a ];
+            let colInc = col;
+            if( incrementColumn ) {
+              colInc += a;
+            }
 
-            if( nextLetter === nextRow[ col ] ) {
-             str += this.buildAnswer( col, row + a, a < ( answer.length - 1 ) );
+            if( nextLetter === nextRow[ colInc ] ) {
+             str += this.buildAnswer( colInc, row + a, a < ( answer.length - 1 ) );
             } else {
               str = beginning;
 
@@ -110,6 +120,48 @@ class WordSearch {
     }
 
     console.log( `Not able to find ${answer}` );
+
+    return '';
+  }
+
+  findWordDiagonally( answer ) {
+    return this.findWordVertically( answer, true );
+    // const firstLetter = answer.substr( 0, 1 );
+    // const beginning = `${answer}: `;
+    // let str = beginning;
+    //
+    // for( let row = 0; row < ( this.grid.length - answer.length + 1 ); row++ ) {
+    //   const currentRow = this.grid[ row ];
+    //
+    //   for( let col = 0; col < ( currentRow.length - answer.length + 1 ); col++ ) {
+    //     const letter = currentRow[ col ];
+    //
+    //     if( letter === firstLetter ) {
+    //       str += this.buildAnswer( col, row );
+    //
+    //       for( let a = 1; a < answer.length; a++ ) {
+    //         const nextLetter = answer.substr( a, 1 );
+    //         const nextRow = this.grid[ row + a ];
+    //
+    //         if( nextLetter === nextRow[ col + a ] ) {
+    //           str += this.buildAnswer( col + a, row + a, a < ( answer.length - 1 ) );
+    //         } else {
+    //           str = beginning;
+    //
+    //           break;
+    //         }
+    //       }
+    //     }
+    //
+    //     if( str !== beginning ) {
+    //       return str;
+    //     }
+    //   }
+    // }
+    //
+    // console.log( `Not able to find ${answer}` );
+    //
+    // return '';
   }
 }
 
