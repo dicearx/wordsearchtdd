@@ -51,27 +51,37 @@ class WordSearch {
     return `(${col},${row})${includeComma ? ',' : ''}`;
   }
 
-  findWordHorizontally( answer ) {
+  findWordHorizontally( answer, searchInReverse = false ) {
+    const beginning = `${answer}: `;
+    let str = beginning;
+
+    if( searchInReverse ) {
+      answer = answer.split( '' ).reverse().join( '' );
+    }
+
     const answerRE = new RegExp( answer, 'i' );
-    let str = '';
 
     for( let row = 0; row < this.grid.length; row++ ) {
       const rowAsString = this.grid[ row ].join( '' );
       const match = rowAsString.match( answerRE );
 
       if( match ) {
-        str += `${answer}: ${this.buildAnswer( match.index, row )}`;
+        let col = match.index;
+        if( searchInReverse ) {
+          col += answer.length - 1;
+        }
+        str += this.buildAnswer( col, row );
 
         for( let i = 1; i < answer.length; i++ ) {
-          str += this.buildAnswer( i, row, i < ( answer.length - 1 ) );
+          str += this.buildAnswer( searchInReverse ? col - i : i, row, i < ( answer.length - 1 ) );
         }
       }
     }
 
-    if( str ) {
+    if( str !== beginning ) {
       return str;
     } else {
-      console.log( `Not able to find ${answer}` );
+      console.log( `Not able to find ${searchInReverse ? answer.split( '' ).reverse().join( '' ) : answer}` );
 
       return '';
     }
@@ -126,42 +136,6 @@ class WordSearch {
 
   findWordDiagonally( answer ) {
     return this.findWordVertically( answer, true );
-    // const firstLetter = answer.substr( 0, 1 );
-    // const beginning = `${answer}: `;
-    // let str = beginning;
-    //
-    // for( let row = 0; row < ( this.grid.length - answer.length + 1 ); row++ ) {
-    //   const currentRow = this.grid[ row ];
-    //
-    //   for( let col = 0; col < ( currentRow.length - answer.length + 1 ); col++ ) {
-    //     const letter = currentRow[ col ];
-    //
-    //     if( letter === firstLetter ) {
-    //       str += this.buildAnswer( col, row );
-    //
-    //       for( let a = 1; a < answer.length; a++ ) {
-    //         const nextLetter = answer.substr( a, 1 );
-    //         const nextRow = this.grid[ row + a ];
-    //
-    //         if( nextLetter === nextRow[ col + a ] ) {
-    //           str += this.buildAnswer( col + a, row + a, a < ( answer.length - 1 ) );
-    //         } else {
-    //           str = beginning;
-    //
-    //           break;
-    //         }
-    //       }
-    //     }
-    //
-    //     if( str !== beginning ) {
-    //       return str;
-    //     }
-    //   }
-    // }
-    //
-    // console.log( `Not able to find ${answer}` );
-    //
-    // return '';
   }
 }
 

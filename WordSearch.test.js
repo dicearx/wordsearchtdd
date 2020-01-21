@@ -46,3 +46,10 @@ test( 'Should find SPOCK diagonally', () => {
 test( 'Should find DRIVEN diagonally', () => {
   expect( ws2.findWordDiagonally( 'DRIVEN' ) ).toBe( 'DRIVEN: (0,0),(1,1),(2,2),(3,3),(4,4),(5,5)' );
 } );
+
+test( 'Should find KIRK reverse horizontally', () => {
+  expect( ws1.findWordHorizontally( 'KIRK', true ) ).toBe( 'KIRK: (4,7),(3,7),(2,7),(1,7)' );
+} );
+test( 'Should find KATA reverse horizontally', () => {
+  expect( ws2.findWordHorizontally( 'KATA', true ) ).toBe( 'KATA: (9,9),(8,9),(7,9),(6,9)' );
+} );
